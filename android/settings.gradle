@@ -1,0 +1,3 @@
+rootProject.name = 'SRPUSH_Sample'
+
+include ':app'

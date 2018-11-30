@@ -1,0 +1,18 @@
+{
+  "extends": "rallycoding",
+  "rules" : {
+    "max-len":"off",
+    "global-require":"off",
+    "no-undef":"off",
+    "prefer-template":"off",
+    "no-useless-concat":"off",
+    "no-param-reassign":"off",
+    "padded-blocks":"off",
+    "arrow-body-style":"off",
+    "brace-style":"off",
+    "no-underscore-dangle":"off",
+    "new-parens":"off",
+    "react/sort-comp": "off",
+    "eqeqeq": "off"
+  }
+}
