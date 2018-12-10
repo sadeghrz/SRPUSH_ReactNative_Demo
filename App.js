@@ -11,10 +11,11 @@ export default class App extends Component {
     super(props);
 
     this.CounterEvents = new NativeEventEmitter(NativeModules.Service);
-    this.Username = '5ba4b8939f63c33b916cfe2f';
-    this.Pass = 'ad016775cc42cdc93a9347482d3375c480e37b39';
-    this.apiHost = 'http://192.168.1.100:9779/api/createSession';
-    this.wsHost = 'ws://192.168.1.100:9780';
+    this.Username = 'testcom1';
+    this.APIPass = 'f35f7c0a34fb9f94bc1ef1be30bddd973bc27ab0';
+    this.SoPass = '7be168fa3bfcc7ad7748016a4babcc7692aa9190';
+    this.apiHost = 'https://testcom1.srpush.ir:2021/api/createSession';
+    this.wsHost = 'wss://testcom1.srpush.ir:2020';
     this.clientUserID = 'DRIVER_145';
     this.sessionTimeout = 500; // expire session after this seconds
 
@@ -50,7 +51,7 @@ export default class App extends Component {
   getSession() {
     axios.post(
       this.apiHost,
-      { uid: this.clientUserID, ExTime: this.sessionTimeout },
+      { uid: this.clientUserID, SoPass: this.SoPass, ExTime: this.sessionTimeout },
       {
         headers: {
             'Content-Type': 'application/json; charset=utf-8',
@@ -58,7 +59,7 @@ export default class App extends Component {
         },
         auth: {
             username: this.Username,
-            password: this.Pass
+            password: this.APIPass
         },
         timeout: 20000
       }

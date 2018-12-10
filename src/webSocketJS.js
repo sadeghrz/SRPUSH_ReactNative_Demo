@@ -58,7 +58,13 @@ connectWS = () => {
     }
     
     let webSocketURL = null;
-    queryString = this.serializeQS({ session, ios: Platform.OS === 'ios' });
+    Platform = 'Other';
+    if (Platform.OS === 'ios') {
+        Platform = 'RNIOS';
+    } else if (Platform.OS === 'android') {
+        Platform = 'RNAndroid';
+    }
+    queryString = this.serializeQS({ session, Platform });
 
     webSocketURL = wsHostAddress + '/' + queryString;
     console.log('connectWS::Connecting to: ' + webSocketURL);
