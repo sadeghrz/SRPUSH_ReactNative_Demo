@@ -50,7 +50,7 @@ class wsConnectionHandler: RCTEventEmitter {
     
     var request = URLRequest(url: URL(string: hostname)!);
     request.setValue(session, forHTTPHeaderField: "session");
-    request.setValue("IOS", forHTTPHeaderField: "Platform");
+    request.setValue("IOS", forHTTPHeaderField: "platform");
     socket = WebSocket(request: request);
     
     socket.onConnect = {

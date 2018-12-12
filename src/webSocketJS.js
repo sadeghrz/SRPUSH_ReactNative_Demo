@@ -1,4 +1,4 @@
-import { DeviceEventEmitter, Platform } from 'react-native';
+import { DeviceEventEmitter, Platform as RNPlatForm} from 'react-native';
 
 let webSocket = null;
 let onlineChecker = null;
@@ -58,13 +58,13 @@ connectWS = () => {
     }
     
     let webSocketURL = null;
-    Platform = 'Other';
-    if (Platform.OS === 'ios') {
-        Platform = 'RNIOS';
-    } else if (Platform.OS === 'android') {
-        Platform = 'RNAndroid';
+    platform = 'Other';
+    if (RNPlatForm.OS === 'ios') {
+        platform = 'RNIOS';
+    } else if (RNPlatForm.OS === 'android') {
+        platform = 'RNAndroid';
     }
-    queryString = this.serializeQS({ session, Platform });
+    queryString = this.serializeQS({ session, platform });
 
     webSocketURL = wsHostAddress + '/' + queryString;
     console.log('connectWS::Connecting to: ' + webSocketURL);

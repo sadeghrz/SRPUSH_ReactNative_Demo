@@ -12,12 +12,13 @@ export default class App extends Component {
 
     this.CounterEvents = new NativeEventEmitter(NativeModules.Service);
     this.Username = 'testcom1';
-    this.APIPass = 'f35f7c0a34fb9f94bc1ef1be30bddd973bc27ab0';
-    this.SoPass = '7be168fa3bfcc7ad7748016a4babcc7692aa9190';
-    this.apiHost = 'https://testcom1.srpush.ir:2021/api/createSession';
-    this.wsHost = 'wss://testcom1.srpush.ir:2020';
-    this.clientUserID = 'DRIVER_145';
-    this.sessionTimeout = 500; // expire session after this seconds
+    this.SoPass = '641b788bcd0fd46eed0f41870a5fc804560f7fba';
+    //this.apiHost = 'https://testcom1.srpush.ir:2021/api/createSession';
+    this.apiHost = 'http://192.168.1.100:9779/api/createSession';
+    //this.wsHost = 'wss://testcom1.srpush.ir:2020';
+    this.wsHost = 'ws://192.168.1.100:9780';
+    this.clientUserID = 'DRIVER_146';
+    this.sessionTimeout = 0; // expire session after this seconds
 
     this.state = {
       status: 'status here',
@@ -51,7 +52,7 @@ export default class App extends Component {
   getSession() {
     axios.post(
       this.apiHost,
-      { uid: this.clientUserID, SoPass: this.SoPass, ExTime: this.sessionTimeout },
+      { uid: this.clientUserID, ExTime: this.sessionTimeout },
       {
         headers: {
             'Content-Type': 'application/json; charset=utf-8',
@@ -59,7 +60,7 @@ export default class App extends Component {
         },
         auth: {
             username: this.Username,
-            password: this.APIPass
+            password: this.SoPass
         },
         timeout: 20000
       }
