@@ -13,11 +13,6 @@ class wsConnectionHandler: RCTEventEmitter {
     return ["new_msg"]
   }
   
-  @objc func addEvent(_ name: String) -> Int {
-    NSLog("%@", name);
-    return 58;
-  }
-  
   var socket : WebSocket!
   var onlineCheckerTimer: Timer? = nil;
   var lastPingDate: Date = Date();
@@ -27,15 +22,15 @@ class wsConnectionHandler: RCTEventEmitter {
   @objc func onlineChecker() {
     print(lastPingDate.timeIntervalSinceNow);
     if (lastPingDate.timeIntervalSinceNow < -8) {
-      self.sendEvent(withName: "new_msg", body: "status:reConnecting...")
+      self.sendEvent(withName: "new_msg", body: "status:connecting")
       connect(host: hostname, sess: session)
     }
   }
   
   func connect(host: String!, sess: String!) {
-    self.sendEvent(withName: "new_msg", body: "status:connecting...")
+    self.sendEvent(withName: "new_msg", body: "status:connecting")
     if (onlineCheckerTimer == nil) {
-      self.sendEvent(withName: "new_msg", body: "status:isnilllll...")
+      self.sendEvent(withName: "new_msg", body: "status:offline")
       DispatchQueue.main.async(execute: {
         self.onlineCheckerTimer = Timer.scheduledTimer(timeInterval: 8,
                              target: self,
@@ -54,11 +49,11 @@ class wsConnectionHandler: RCTEventEmitter {
     socket = WebSocket(request: request);
     
     socket.onConnect = {
-      self.sendEvent(withName: "new_msg", body: "status:connected")
+      self.sendEvent(withName: "new_msg", body: "status:online")
     }
     
     socket.onDisconnect = { (error: Error?) in
-      self.sendEvent(withName: "new_msg", body: "status:disConnected")
+      self.sendEvent(withName: "new_msg", body: "status:offline")
     }
     
     socket.onText = { (text: String) in
@@ -99,4 +94,5 @@ class wsConnectionHandler: RCTEventEmitter {
     onlineCheckerTimer = nil;
     socket.disconnect();
   }
+
 }

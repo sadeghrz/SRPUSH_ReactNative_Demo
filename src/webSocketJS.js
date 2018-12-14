@@ -1,4 +1,9 @@
-import { DeviceEventEmitter, Platform as RNPlatForm} from 'react-native';
+import { DeviceEventEmitter, Platform as RNPlatForm } from 'react-native';
+
+// statuses:
+// offline
+// connecting
+// online
 
 let webSocket = null;
 let onlineChecker = null;
@@ -68,7 +73,7 @@ connectWS = () => {
 
     webSocketURL = wsHostAddress + '/' + queryString;
     console.log('connectWS::Connecting to: ' + webSocketURL);
-    this.sendMessage('status:connecting...');
+    this.sendMessage('status:connecting');
 
     try {
         webSocket = new WebSocket(webSocketURL);
@@ -80,7 +85,7 @@ connectWS = () => {
         };
         webSocket.onerror = (errorEvent) => {
             console.log('WebSocket ERROR');
-            this.sendMessage('status:error');
+            this.sendMessage('status:offline');
         };
         webSocket.onmessage = (messageEvent) => {
             this.onMessageFunc(messageEvent);
@@ -122,7 +127,6 @@ onOpenFunc = (openEvent) => {
 onMessageFunc = (messageEvent) => {
     try {
         let wsMsg = messageEvent.data;
-        //sendMessage(wsMsg);
 
         if (wsMsg === 'pi') { // if it's ping
             webSocket.send('po'); // say pong

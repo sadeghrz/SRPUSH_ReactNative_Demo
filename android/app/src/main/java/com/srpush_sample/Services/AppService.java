@@ -137,7 +137,7 @@ public class AppService extends Service {
     }
 
     private void connectWS() {
-        handleMessage("status:connecting ...");
+        handleMessage("status:connecting");
 
         URI uri;
         try {
@@ -158,7 +158,7 @@ public class AppService extends Service {
             public void onOpen(ServerHandshake serverHandshake) {
                 lastPing = Calendar.getInstance().getTime();
                 IsOnline = true;
-                handleMessage("status:connected");
+                handleMessage("status:online");
                 Log.d("srpushSampleLogTag", "client is now online");
             }
 
@@ -181,13 +181,13 @@ public class AppService extends Service {
             @Override
             public void onClose(int i, String s, boolean b) {
                 Log.i("srpushSampleLogTag", "Closed " + s);
-                handleMessage("status:closed");
+                handleMessage("status:offline");
             }
 
             @Override
             public void onError(Exception e) {
                 Log.i("srpushSampleLogTag", "Error " + e.getMessage());
-                handleMessage("status:error");
+                handleMessage("status:offline");
             }
         };
         mWebSocketClient.connect();
