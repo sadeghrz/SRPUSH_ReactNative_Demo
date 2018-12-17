@@ -42,7 +42,6 @@ export default class App extends Component {
 
   setOnNewCBMessage = (newMsg) => {
     if (newMsg && newMsg.indexOf('status:') > -1) {
-      console.log('ping');
       return this.setState({ status: newMsg });  
     }
     console.log('new message recieved');
